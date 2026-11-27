@@ -4,6 +4,7 @@
   "type": "module",
   "scripts": {
     "test": "node --test impact/analyze.test.ts",
+    "build": "node build.ts",
     "demo": "powershell -ExecutionPolicy Bypass -File run-demo.ps1"
   }
 }
