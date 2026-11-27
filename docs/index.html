@@ -10,152 +10,98 @@
   :root {
     --bg: #f6f5f1; --card: #ffffff; --ink: #1d1d1b; --muted: #6b6a65; --line: #e2e0d8;
     --red: #c4352b; --red-bg: #fbe9e7; --amber: #a86400; --amber-bg: #fdf1dc;
-    --green: #1f7a4d; --green-bg: #e3f4ea; --gray-bg: #efeee9; --blue: #2456a6;
+    --green: #1f7a4d; --green-bg: #e3f4ea; --gray-bg: #efeee9; --blue: #2456a6; --blue-bg: #e8eef9;
     --mono: 'IBM Plex Mono', ui-monospace, Consolas, monospace;
   }
   * { box-sizing: border-box; }
   body { margin: 0; background: var(--bg); color: var(--ink);
-         font: 17px/1.55 'IBM Plex Sans Thai', 'Leelawadee UI', system-ui, sans-serif; }
+         font: 16px/1.5 'IBM Plex Sans Thai', 'Leelawadee UI', system-ui, sans-serif; }
   code { font-family: var(--mono); font-size: .9em; background: var(--gray-bg); padding: 1px 6px; border-radius: 4px; }
+  button { font: inherit; cursor: pointer; }
 
-  nav { position: sticky; top: 0; z-index: 2; display: flex; gap: 6px; align-items: center;
-        padding: 12px 28px; background: var(--ink); color: #fff; }
-  nav .brand { font-weight: 700; margin-right: 16px; letter-spacing: .2px; }
-  nav button { font: inherit; font-size: 15px; color: #cfcdc5; background: transparent; border: 1px solid #45443f;
-               padding: 5px 14px; border-radius: 999px; cursor: pointer; }
+  nav { position: sticky; top: 0; z-index: 3; display: flex; gap: 6px; align-items: center;
+        padding: 10px 24px; background: var(--ink); color: #fff; }
+  nav .brand { font-weight: 700; margin-right: 16px; }
+  nav button { font-size: 15px; color: #cfcdc5; background: transparent; border: 1px solid #45443f; padding: 4px 14px; border-radius: 999px; }
   nav button.on { background: #fff; color: var(--ink); border-color: #fff; font-weight: 600; }
-  nav .hint { margin-left: auto; font-size: 13px; color: #9a988f; }
+  nav .status { margin-left: auto; font-size: 13px; color: #9a988f; }
 
-  main { max-width: 1240px; margin: 0 auto; padding: 32px 28px 60px; }
+  main { max-width: 1400px; margin: 0 auto; padding: 24px; }
   section { display: none; } section.on { display: block; }
-  h1 { font-size: 34px; line-height: 1.25; margin: 0 0 6px; }
-  h2 { font-size: 15px; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin: 0 0 12px; }
-  .lead { font-size: 20px; color: var(--muted); margin: 0 0 26px; max-width: 900px; }
+  h1 { font-size: 30px; line-height: 1.25; margin: 0 0 6px; }
+  h2 { font-size: 13px; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin: 0 0 10px; display: flex; align-items: center; gap: 8px; }
+  .lead { font-size: 18px; color: var(--muted); margin: 0 0 22px; max-width: 980px; }
+  .box { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; }
+  .pill { display: inline-block; font-size: 11px; font-weight: 700; padding: 1px 8px; border-radius: 999px; text-transform: none; letter-spacing: 0; }
+  .pill.tool { background: var(--gray-bg); color: var(--muted); } .pill.us { background: var(--blue); color: #fff; }
 
-  .box { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 20px 22px; }
-  .change { margin-bottom: 22px; }
-  .change ul { margin: 0; padding-left: 20px; }
-  .diff { font-family: var(--mono); font-size: 14px; margin-top: 12px; border-radius: 8px; overflow: hidden; border: 1px solid var(--line); }
-  .diff div { padding: 2px 12px; white-space: pre; }
-  .diff .del { background: var(--red-bg); color: var(--red); }
-  .diff .add { background: var(--green-bg); color: var(--green); }
-  .diff .ctx { color: var(--muted); }
+  /* playground */
+  .play { display: grid; grid-template-columns: minmax(380px, 1fr) 1.35fr; gap: 18px; align-items: start; }
+  .presets { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+  .presets button { font-size: 14px; border: 1px solid var(--line); background: var(--card); padding: 5px 12px; border-radius: 8px; }
+  .presets button:hover { border-color: var(--ink); }
+  .presets button.on { background: var(--ink); color: #fff; border-color: var(--ink); }
+  textarea { width: 100%; height: 560px; resize: vertical; font: 13px/1.5 var(--mono); padding: 12px; border: 1px solid var(--line);
+             border-radius: 10px; background: #fbfaf7; color: var(--ink); tab-size: 2; }
+  textarea:focus { outline: 2px solid var(--blue); border-color: transparent; }
+  .hint { font-size: 13px; color: var(--muted); margin-top: 6px; }
 
-  .cols { display: grid; grid-template-columns: 1fr 1.25fr; gap: 22px; }
-  .verdict { display: flex; align-items: center; gap: 12px; font-size: 22px; font-weight: 700;
-             padding: 14px 18px; border-radius: 10px; margin-bottom: 16px; }
+  .verdict { display: flex; align-items: center; gap: 12px; font-size: 21px; font-weight: 700; padding: 10px 16px; border-radius: 10px; margin-bottom: 8px; }
+  .verdict small { font-size: 13px; font-weight: 400; color: var(--muted); }
   .verdict.fail { background: var(--red-bg); color: var(--red); }
   .verdict.pass { background: var(--green-bg); color: var(--green); }
-  .verdict small { display: block; font-size: 13px; font-weight: 400; color: var(--muted); }
-  .chg { display: grid; grid-template-columns: 64px 1fr; gap: 10px; padding: 10px 0; border-top: 1px solid var(--line); font-size: 15px; }
-  .lvl { font-family: var(--mono); font-size: 12px; font-weight: 600; text-align: center; border-radius: 5px; padding: 3px 0; height: fit-content; }
+  .verdict.same { background: var(--gray-bg); color: var(--muted); }
+  .verdict.err { background: var(--amber-bg); color: var(--amber); font-size: 15px; font-weight: 600; }
+  .chg { display: grid; grid-template-columns: 58px 1fr; gap: 10px; padding: 7px 0; border-top: 1px solid var(--line); font-size: 14px; }
+  .lvl { font-family: var(--mono); font-size: 11px; font-weight: 600; text-align: center; border-radius: 5px; padding: 2px 0; height: fit-content; }
   .lvl.e { background: var(--red); color: #fff; } .lvl.w { background: var(--amber); color: #fff; } .lvl.i { background: var(--gray-bg); color: var(--muted); }
-  .chg .rule { font-family: var(--mono); font-size: 12px; color: var(--muted); }
+  .rule { font-family: var(--mono); font-size: 11px; color: var(--muted); }
+  .right > .box + .box { margin-top: 14px; }
 
-  .apps { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  .app { border-radius: 12px; padding: 14px 16px; border: 2px solid transparent; background: var(--gray-bg); }
-  .app .name { font-weight: 700; font-size: 17px; }
-  .app .reads { font-size: 13px; color: var(--muted); margin: 2px 0 10px; }
-  .tag { display: inline-block; font-size: 13px; font-weight: 700; padding: 2px 10px; border-radius: 999px; }
-  .app .why { font-size: 14px; margin-top: 8px; }
+  .apps { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .app { border-radius: 12px; padding: 12px 14px; border: 2px solid transparent; background: var(--gray-bg); transition: background .2s, border-color .2s; }
+  .app .name { font-weight: 700; display: flex; justify-content: space-between; gap: 8px; align-items: baseline; }
+  .tag { font-size: 12px; font-weight: 700; padding: 1px 9px; border-radius: 999px; white-space: nowrap; }
   .app.broken { background: var(--red-bg); border-color: var(--red); } .app.broken .tag { background: var(--red); color: #fff; }
   .app.warned { background: var(--amber-bg); border-color: var(--amber); } .app.warned .tag { background: var(--amber); color: #fff; }
   .app.safe .tag { background: #fff; color: var(--muted); }
-  .app.safe { opacity: .75; }
+  .why { font-size: 13px; margin-top: 6px; font-weight: 600; }
+  .reads { margin-top: 8px; font-size: 13px; }
+  .reads .ep { font-family: var(--mono); font-size: 11px; color: var(--muted); margin-top: 4px; }
+  .reads label { display: inline-flex; align-items: center; gap: 3px; margin-right: 10px; font-family: var(--mono); font-size: 12px; cursor: pointer; }
+  .reads input { accent-color: var(--ink); margin: 0; }
+  .note { margin-top: 10px; font-size: 13px; color: var(--muted); }
 
-  .take { margin-top: 22px; padding: 16px 20px; border-left: 5px solid var(--blue); background: #e8eef9; border-radius: 0 10px 10px 0; font-size: 18px; }
-
-  .flow { display: flex; align-items: stretch; gap: 10px; margin: 8px 0 26px; flex-wrap: wrap; }
-  .step { flex: 1; min-width: 170px; }
-  .step.ours { border-color: var(--blue); border-width: 2px; }
-  .step b { display: block; font-size: 17px; margin-bottom: 4px; }
-  .step span { font-size: 14px; color: var(--muted); }
+  /* overview / summary */
+  .flow { display: flex; align-items: stretch; gap: 10px; margin: 8px 0 22px; flex-wrap: wrap; }
+  .step { flex: 1; min-width: 170px; } .step.ours { border-color: var(--blue); border-width: 2px; }
+  .step b { display: block; font-size: 16px; margin-bottom: 4px; } .step span { font-size: 14px; color: var(--muted); }
   .arrow { align-self: center; font-size: 22px; color: var(--muted); }
-  .pill { display: inline-block; font-size: 12px; font-weight: 700; padding: 1px 8px; border-radius: 999px; margin-bottom: 6px; }
-  .pill.tool { background: var(--gray-bg); color: var(--muted); } .pill.us { background: var(--blue); color: #fff; }
-  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+  .try { padding: 16px 20px; border-left: 5px solid var(--blue); background: var(--blue-bg); border-radius: 0 10px 10px 0; font-size: 17px; }
+  .try ol { margin: 6px 0 0; padding-left: 22px; } .try li { margin: 4px 0; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
   .grid2 ul { margin: 0; padding-left: 20px; } .grid2 li { margin: 6px 0; }
-  table { border-collapse: collapse; width: 100%; font-size: 16px; }
-  th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); }
-  th { font-size: 13px; text-transform: uppercase; letter-spacing: .6px; color: var(--muted); }
-  .foot { margin-top: 30px; font-size: 13px; color: var(--muted); }
+  table { border-collapse: collapse; width: 100%; font-size: 15px; }
+  th, td { text-align: left; padding: 9px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-size: 12px; text-transform: uppercase; letter-spacing: .6px; color: var(--muted); }
+  .bigbtn { font-size: 17px; font-weight: 700; background: var(--blue); color: #fff; border: 0; padding: 10px 22px; border-radius: 10px; margin-top: 18px; }
+  .foot { margin-top: 26px; font-size: 13px; color: var(--muted); }
 </style>
 </head>
 <body>
-<nav id="nav"><span class="brand">API Deprecation Guard</span><span class="hint">← → เปลี่ยนหน้า</span></nav>
-<main id="main"></main>
-<script src="data.js"></script>
-<script>
-const D = window.DEMO;
-const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-const ticks = s => esc(s).replace(/`([^`]+)`/g, '<code>$1</code>');
+<nav>
+  <span class="brand">API Deprecation Guard</span>
+  <button data-page="0" class="on">ภาพรวม</button>
+  <button data-page="1">ลองเอง ▶</button>
+  <button data-page="2">สรุป</button>
+  <span class="status" id="status">กำลังโหลด oasdiff (WebAssembly ~6 MB)…</span>
+</nav>
+<main>
 
-// Which fields each app reads, from usage.json
-const apps = {};
-for (const u of D.usage) (apps[u.app] ||= []).push(`${u.method} ${u.path} → ${u.field}`);
-
-// Hand-written story for each scenario (the specs themselves are fixed)
-const STORY = {
-  '1-remove.yaml': {
-    tab: '1 · ลบเลย',
-    title: 'Scenario 1 — ลบ field และ endpoint ทิ้งเลย ไม่ deprecate ก่อน',
-    lead: 'นักพัฒนาลบ <code>phone</code> ออกจาก /users/{id} และลบ /orders ทั้งเส้น — แบบที่ 87.3% ของ API จริงทำ (Yasmin et al.)',
-    diff: [['ctx', 'GET /users/{id} → { id, name, email }'], ['del', '-   phone: string'], ['del', '- GET /orders   (ทั้ง endpoint)']],
-    take: 'oasdiff บล็อก PR ได้เพราะ /orders ถูกลบ — แต่การลบ <code>phone</code> เป็นแค่ <b>info</b> ทั้งที่ App B พังจริง เราบอกได้ว่าต้องแจ้ง <b>B และ D เท่านั้น</b>',
-  },
-  '2-deprecate.yaml': {
-    tab: '2 · deprecate ก่อน',
-    title: 'Scenario 2 — ทำแบบถูกต้อง: deprecate ก่อน พร้อมวัน sunset',
-    lead: 'ยังไม่ลบอะไร แค่ประกาศว่า /orders จะหายไปวันที่ 2027-06-01',
-    diff: [['ctx', 'GET /orders'], ['add', '+   deprecated: true'], ['add', "+   x-sunset: '2027-06-01'"]],
-    take: 'oasdiff รู้จัก deprecation + sunset → PR ผ่าน แต่ใครต้องย้าย? เราส่ง notice ให้ <b>App D ทีมเดียว</b> และติดตามจนกว่าจะย้ายเสร็จก่อน sunset',
-  },
-  '3-rename.yaml': {
-    tab: '3 · rename',
-    title: 'Scenario 3 — เปลี่ยนชื่อ field: phone → phoneNumber',
-    lead: 'ดูเหมือนเปลี่ยนเล็กน้อย แต่สำหรับแอปที่อ่าน <code>phone</code> ข้อมูลหายไปทันที',
-    diff: [['ctx', 'GET /users/{id}'], ['del', '-   phone: string'], ['add', '+   phoneNumber: string']],
-    take: 'oasdiff ให้ <b>PR ผ่าน</b> (ลบ + เพิ่ม optional field = info) → App B พังใน production เราจับได้ก่อน merge และแจ้ง <b>App B</b> พร้อม field ใหม่ที่ควรใช้',
-  },
-};
-
-const LVL = { 3: ['e', 'ERROR'], 2: ['w', 'WARN'], 1: ['i', 'INFO'] };
-
-function scenario(s) {
-  const st = STORY[s.file];
-  const status = {};
-  for (const h of s.impact.broken) (status[h.app] ||= { cls: 'broken', tag: '✖ พัง → แจ้งทีมนี้', why: [] }).why.push(h.reason);
-  for (const h of s.impact.warned) (status[h.app] ||= { cls: 'warned', tag: '⚠ ต้องย้าย → ส่ง notice', why: [] }).why.push(h.reason);
-  const changes = s.changes.filter(c => c.id !== 'api-version-changed');
-  return `
-    <h1>${st.title}</h1>
-    <p class="lead">${st.lead}</p>
-    <div class="box change"><h2>สิ่งที่เปลี่ยนใน spec · <code>${s.file}</code></h2>
-      <div class="diff">${st.diff.map(([k, t]) => `<div class="${k}">${esc(t)}</div>`).join('')}</div></div>
-    <div class="cols">
-      <div class="box">
-        <h2><span class="pill tool">เครื่องมือเดิม</span> oasdiff</h2>
-        <div class="verdict ${s.prFails ? 'fail' : 'pass'}">${s.prFails ? '✖ PR ถูกบล็อก' : '✔ PR ผ่าน'}
-          <small>oasdiff breaking -o ERR → exit ${s.prFails ? 1 : 0}</small></div>
-        ${changes.map(c => `<div class="chg"><span class="lvl ${LVL[c.level][0]}">${LVL[c.level][1]}</span>
-          <div>${ticks(c.text)}<div class="rule">${esc(c.operation ? c.operation + ' ' + c.path + ' · ' : '')}${esc(c.id)}</div></div></div>`).join('')}
-      </div>
-      <div class="box">
-        <h2><span class="pill us">ส่วนของเรา</span> แอปไหนได้รับผลกระทบ?</h2>
-        <div class="apps">${Object.entries(apps).map(([app, reads]) => {
-          const x = status[app] || { cls: 'safe', tag: 'ปลอดภัย · ไม่ส่งข้อความ', why: [] };
-          return `<div class="app ${x.cls}"><div class="name">${esc(app)}</div>
-            <div class="reads">อ่าน: ${reads.map(esc).join(', ')}</div>
-            <span class="tag">${x.tag}</span>${x.why.map(w => `<div class="why">${esc(w)}</div>`).join('')}</div>`;
-        }).join('')}</div>
-      </div>
-    </div>
-    <div class="take">${st.take}</div>`;
-}
-
-const intro = `
+<!-- 0: overview -->
+<section class="on">
   <h1>oasdiff ตรวจว่า API เปลี่ยนอะไร — แต่ไม่รู้ว่า<u>ใคร</u>จะพัง</h1>
-  <p class="lead">Demo นี้รัน oasdiff จริงกับ OpenAPI spec 3 สถานการณ์ แล้วเอาผลไป join กับข้อมูลว่าแอปไหนอ่าน field ไหน</p>
+  <p class="lead">หน้านี้รัน <b>oasdiff ตัวจริง</b> (คอมไพล์เป็น WebAssembly) อยู่ในเบราว์เซอร์ แล้วเอาผลไป join กับข้อมูลว่าแอปไหนอ่าน field ไหน — ลองแก้ API เองได้ ผลเปลี่ยนทันที</p>
   <div class="flow">
     <div class="box step"><span class="pill tool">input</span><b>Pull request</b><span>openapi.yaml เวอร์ชันเก่า vs ใหม่</span></div>
     <div class="arrow">→</div>
@@ -165,47 +111,201 @@ const intro = `
     <div class="arrow">→</div>
     <div class="box step ours"><span class="pill us">ของเรา</span><b>แจ้ง + ติดตาม</b><span>PR comment · Slack/LINE เฉพาะทีม · ย้ายครบก่อน sunset?</span></div>
   </div>
-  <div class="box"><h2>แอปจำลอง 4 ตัวที่ใช้ Shop API</h2>
-    <table><tr><th>แอป</th><th>อ่าน field</th></tr>
-    ${Object.entries(apps).map(([a, r]) => `<tr><td><b>${esc(a)}</b></td><td>${r.map(esc).join('<br>')}</td></tr>`).join('')}</table></div>`;
+  <div class="try"><b>ลองเอง (แท็บ "ลองเอง ▶")</b>
+    <ol>
+      <li>กดปุ่ม scenario ด้านบน editor หรือ<b>พิมพ์แก้ YAML เอง</b> — เช่นลบบรรทัด <code>phone</code></li>
+      <li>ดูฝั่ง <b>oasdiff</b>: PR ถูกบล็อกไหม</li>
+      <li>ดูฝั่ง <b>ของเรา</b>: แอปไหนเป็นสีแดง (พัง) สีส้ม (ต้องย้าย) สีเทา (ไม่โดน)</li>
+      <li>ติ๊ก checkbox ว่าแอปอ่าน field ไหน — เช่นให้ App C อ่าน <code>phone</code> ด้วย แล้วดูว่าผลเปลี่ยน</li>
+    </ol>
+  </div>
+  <button class="bigbtn" data-page="1">เริ่มลอง ▶</button>
+</section>
 
-const summary = `
+<!-- 1: playground -->
+<section>
+  <div class="play">
+    <div class="box">
+      <h2>API spec ใน pull request <span class="pill tool">แก้ได้</span></h2>
+      <div class="presets" id="presets"></div>
+      <textarea id="editor" spellcheck="false"></textarea>
+      <div class="hint">เทียบกับ <code>base.yaml</code> (v1 ที่อยู่ใน production) · ผลอัปเดตอัตโนมัติขณะพิมพ์</div>
+    </div>
+    <div class="right">
+      <div class="box">
+        <h2><span class="pill tool">เครื่องมือเดิม</span> oasdiff</h2>
+        <div id="oasdiff"></div>
+      </div>
+      <div class="box">
+        <h2><span class="pill us">ส่วนของเรา</span> แอปไหนได้รับผลกระทบ?</h2>
+        <div class="apps" id="apps"></div>
+        <div class="note">☑ = แอปนี้อ่าน field นี้ (ของจริงเก็บอัตโนมัติด้วย SDK ที่ใช้ JavaScript Proxy) — ลองติ๊กเปลี่ยนดูได้</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2: summary -->
+<section>
   <h1>สรุป</h1>
-  <p class="lead">ผลจริงจาก ${esc(D.version)} — สร้างเมื่อ ${D.builtAt}</p>
-  <div class="box" style="margin-bottom:22px"><table>
-    <tr><th>Scenario</th><th>oasdiff</th><th>ส่วนของเราแจ้ง</th></tr>
-    ${D.scenarios.map(s => `<tr><td>${STORY[s.file].tab}</td><td>${s.prFails ? '✖ PR ถูกบล็อก' : '✔ PR ผ่าน'}</td>
-      <td>${[...s.impact.broken.map(h => '✖ ' + h.app), ...s.impact.warned.map(h => '⚠ ' + h.app)].map(esc).join('<br>')}</td></tr>`).join('')}
-  </table></div>
+  <p class="lead">ผลจาก oasdiff ตัวจริง (รันสดในเบราว์เซอร์) กับ scenario ทั้งหมด และ field usage ตั้งต้น</p>
+  <div class="box" style="margin-bottom:18px"><table id="sumtable"><tr><td>กำลังโหลด…</td></tr></table></div>
   <div class="grid2">
     <div class="box"><h2>oasdiff ทำได้</h2><ul>
-      <li>เทียบ spec สองเวอร์ชัน มีกฎหลายร้อยข้อ</li>
-      <li>บล็อก PR เมื่อลบโดยไม่ deprecate (exit code ใน CI)</li>
+      <li>เทียบ spec สองเวอร์ชัน มีกฎหลายร้อยข้อ (784 รายการใน v1.40.0)</li>
+      <li>บล็อก PR เมื่อลบโดยไม่ deprecate หรือเปลี่ยน type (exit code ใน CI)</li>
       <li>รู้จัก <code>deprecated</code> + <code>x-sunset</code></li>
-      <li>ออก JSON ให้โปรแกรมเราอ่านต่อ · Apache-2.0</li></ul></div>
+      <li>ออก JSON ให้โปรแกรมเราอ่านต่อ · license Apache-2.0</li></ul></div>
     <div class="box"><h2>oasdiff ทำไม่ได้ → โปรเจกต์ของเรา</h2><ul>
       <li>ไม่รู้ว่าแอปไหนอ่าน field ไหน → ลบ optional field ผ่านได้ทั้งที่มีแอปพัง</li>
       <li>ไม่แจ้งเฉพาะทีมที่โดน → เราส่ง notice พร้อมวัน sunset + field ทดแทน</li>
       <li>ไม่ติดตามการย้าย → เราเช็กว่าทุกทีมย้ายเสร็จก่อนลบจริง</li>
       <li>rename = ลบ + เพิ่ม → ใช้ LLM ช่วยเดา rename และเสนอ replacement</li></ul></div>
   </div>
-  <p class="foot">Source: github.com/punkharb/api-deprecation-guard-demo · ข้อมูลในหน้านี้สร้างจาก <code>node build.ts</code></p>`;
+  <p class="foot">Source: github.com/punkharb/api-deprecation-guard-demo · oasdiff v1.40.0 compiled to WebAssembly</p>
+</section>
+</main>
 
-const pages = [['ภาพรวม', intro], ...D.scenarios.map(s => [STORY[s.file].tab, scenario(s)]), ['สรุป', summary]];
-const nav = document.getElementById('nav'), main = document.getElementById('main');
-pages.forEach(([tab, html], i) => {
-  const b = document.createElement('button'); b.textContent = tab; b.onclick = () => go(i);
-  nav.insertBefore(b, nav.querySelector('.hint'));
-  const sec = document.createElement('section'); sec.innerHTML = html; main.appendChild(sec);
-});
-let cur = 0;
+<script src="wasm_exec.js"></script>
+<script type="module">
+import { analyze } from './analyze.js';
+import { SPECS, USAGE } from './specs.js';
+
+const $ = id => document.getElementById(id);
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+const ticks = s => esc(s).replace(/`([^`]+)`/g, '<code>$1</code>');
+const LVL = { 3: ['e', 'ERROR'], 2: ['w', 'WARN'], 1: ['i', 'INFO'] };
+
+const PRESETS = [
+  ['base.yaml', 'ไม่แก้ (reset)'],
+  ['1-remove.yaml', '1 · ลบ phone + /orders'],
+  ['2-deprecate.yaml', '2 · deprecate /orders'],
+  ['3-rename.yaml', '3 · rename phone'],
+  ['4-type.yaml', '4 · เปลี่ยน type total'],
+];
+// Fields each endpoint returns in base.yaml (columns of the usage checkboxes)
+const ENDPOINTS = [
+  { method: 'GET', path: '/users/{id}', fields: ['id', 'name', 'phone', 'email'] },
+  { method: 'GET', path: '/orders', fields: ['orderId', 'total'] },
+];
+
+// ---------- page switching ----------
+const sections = [...document.querySelectorAll('section')];
+const navBtns = [...document.querySelectorAll('nav button')];
 function go(i) {
-  cur = Math.max(0, Math.min(pages.length - 1, i));
-  main.querySelectorAll('section').forEach((s, j) => s.classList.toggle('on', j === cur));
-  nav.querySelectorAll('button').forEach((b, j) => b.classList.toggle('on', j === cur));
+  sections.forEach((s, j) => s.classList.toggle('on', j === i));
+  navBtns.forEach((b, j) => b.classList.toggle('on', j === i));
   scrollTo(0, 0);
 }
-addEventListener('keydown', e => { if (e.key === 'ArrowRight') go(cur + 1); if (e.key === 'ArrowLeft') go(cur - 1); });
-go(0);
+document.querySelectorAll('[data-page]').forEach(b => b.onclick = () => go(+b.dataset.page));
+
+// ---------- state ----------
+let usage = structuredClone(USAGE);
+let lastChanges = null;
+const appNames = [...new Set(USAGE.map(u => u.app))];
+
+// ---------- oasdiff (WebAssembly) ----------
+async function loadOasdiff() {
+  const go = new Go();
+  const bytes = await (await fetch('oasdiff.wasm')).arrayBuffer();
+  const { instance } = await WebAssembly.instantiate(bytes, go.importObject);
+  go.run(instance);
+}
+function runOasdiff(rev) {
+  const r = globalThis.oasdiffChangelog(SPECS['base.yaml'], rev);
+  if (r.error) return { error: r.error };
+  return { changes: JSON.parse(r.json || '[]') };
+}
+
+// ---------- rendering ----------
+function renderOasdiff(res) {
+  const el = $('oasdiff');
+  if (res.error) {
+    el.innerHTML = `<div class="verdict err">⚠ YAML / OpenAPI ไม่ถูกต้อง — oasdiff อ่านไม่ได้</div><div class="rule">${esc(res.error)}</div>`;
+    return;
+  }
+  const shown = res.changes.filter(c => c.id !== 'api-version-changed');
+  const fails = res.changes.some(c => c.level === 3);
+  const verdict = !shown.length
+    ? `<div class="verdict same">ไม่มีการเปลี่ยนแปลงของ API</div>`
+    : `<div class="verdict ${fails ? 'fail' : 'pass'}">${fails ? '✖ PR ถูกบล็อก' : '✔ PR ผ่าน'}
+         <small>oasdiff breaking -o ERR → exit ${fails ? 1 : 0}</small></div>`;
+  el.innerHTML = verdict + shown.map(c => `<div class="chg"><span class="lvl ${LVL[c.level][0]}">${LVL[c.level][1]}</span>
+    <div>${ticks(c.text)}<div class="rule">${esc(c.operation ? c.operation + ' ' + c.path + ' · ' : '')}${esc(c.id)}</div></div></div>`).join('');
+}
+
+function renderApps() {
+  const r = lastChanges ? analyze(lastChanges, usage) : { broken: [], warned: [] };
+  const status = {};
+  for (const h of r.broken) (status[h.app] ||= { cls: 'broken', tag: '✖ พัง → แจ้งทีมนี้', why: [] }).why.push(h.reason);
+  for (const h of r.warned) (status[h.app] ||= { cls: 'warned', tag: '⚠ ต้องย้าย → ส่ง notice', why: [] }).why.push(h.reason);
+  $('apps').innerHTML = appNames.map(app => {
+    const s = status[app] || { cls: 'safe', tag: 'ไม่โดน · ไม่ส่งข้อความ', why: [] };
+    const boxes = ENDPOINTS.map(ep => `<div class="ep">${ep.method} ${esc(ep.path)}</div>` + ep.fields.map(f => {
+      const on = usage.some(u => u.app === app && u.method === ep.method && u.path === ep.path && u.field === f);
+      return `<label><input type="checkbox" data-app="${esc(app)}" data-path="${esc(ep.path)}" data-method="${ep.method}" data-field="${f}" ${on ? 'checked' : ''}>${f}</label>`;
+    }).join('')).join('');
+    return `<div class="app ${s.cls}"><div class="name">${esc(app)}<span class="tag">${s.tag}</span></div>
+      ${s.why.map(w => `<div class="why">${esc(w)}</div>`).join('')}<div class="reads">${boxes}</div></div>`;
+  }).join('');
+}
+
+$('apps').addEventListener('change', e => {
+  const d = e.target.dataset;
+  usage = usage.filter(u => !(u.app === d.app && u.method === d.method && u.path === d.path && u.field === d.field));
+  if (e.target.checked) usage.push({ app: d.app, method: d.method, path: d.path, field: d.field });
+  renderApps();
+});
+
+function check() {
+  const res = runOasdiff($('editor').value);
+  lastChanges = res.error ? null : res.changes;
+  renderOasdiff(res);
+  renderApps();
+}
+
+function loadPreset(file) {
+  $('editor').value = SPECS[file];
+  document.querySelectorAll('#presets button').forEach(b => b.classList.toggle('on', b.dataset.file === file));
+  check();
+}
+$('presets').innerHTML = PRESETS.map(([f, label]) => `<button data-file="${f}">${label}</button>`).join('');
+$('presets').onclick = e => e.target.dataset.file && loadPreset(e.target.dataset.file);
+
+let timer;
+$('editor').addEventListener('input', () => {
+  document.querySelectorAll('#presets button').forEach(b => b.classList.remove('on'));
+  clearTimeout(timer); timer = setTimeout(check, 250);
+});
+$('editor').addEventListener('keydown', e => {   // Tab inserts 2 spaces instead of leaving the editor
+  if (e.key !== 'Tab') return;
+  e.preventDefault();
+  e.target.setRangeText('  ', e.target.selectionStart, e.target.selectionEnd, 'end');
+  e.target.dispatchEvent(new Event('input'));
+});
+
+function renderSummary() {
+  const rows = PRESETS.slice(1).map(([f, label]) => {
+    const { changes } = runOasdiff(SPECS[f]);
+    const r = analyze(changes, USAGE);
+    const fails = changes.some(c => c.level === 3);
+    const hits = [...r.broken.map(h => '✖ ' + h.app), ...r.warned.map(h => '⚠ ' + h.app)];
+    return `<tr><td>${label}</td><td>${fails ? '✖ PR ถูกบล็อก' : '✔ PR ผ่าน'}</td><td>${hits.map(esc).join('<br>') || '—'}</td></tr>`;
+  });
+  $('sumtable').innerHTML = `<tr><th>Scenario</th><th>oasdiff</th><th>ส่วนของเราแจ้ง</th></tr>${rows.join('')}`;
+}
+
+$('editor').value = SPECS['base.yaml'];
+renderApps();
+try {
+  await loadOasdiff();
+  $('status').textContent = '● oasdiff v1.40.0 พร้อม (รันในเบราว์เซอร์)';
+  loadPreset('base.yaml');
+  renderSummary();
+} catch (err) {
+  $('status').textContent = '✖ โหลด oasdiff ไม่สำเร็จ';
+  $('oasdiff').innerHTML = `<div class="verdict err">โหลด oasdiff.wasm ไม่สำเร็จ: ${esc(err.message)}</div>`;
+}
 </script>
 </body>
+</html>

@@ -8,7 +8,8 @@ Set-Location "$here\specs"
 $scenarios = @(
   @{ file = '1-remove.yaml';    title = 'Scenario 1: delete phone + /orders with NO deprecation' },
   @{ file = '2-deprecate.yaml'; title = 'Scenario 2: deprecate /orders with sunset date (the right way)' },
-  @{ file = '3-rename.yaml';    title = 'Scenario 3: rename phone -> phoneNumber' }
+  @{ file = '3-rename.yaml';    title = 'Scenario 3: rename phone -> phoneNumber' },
+  @{ file = '4-type.yaml';      title = 'Scenario 4: change total from number to string' }
 )
 
 foreach ($s in $scenarios) {
