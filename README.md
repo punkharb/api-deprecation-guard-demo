@@ -2,7 +2,12 @@
 
 Demo สั้นๆ ให้อาจารย์ดูว่า **oasdiff คืออะไร ทำอะไรได้ ทำอะไรไม่ได้** และ **ส่วนที่กลุ่มจะเติม** คืออะไร
 
-## Setup (ครั้งเดียว)
+## ▶ ดู demo แบบง่ายสุด (ไม่ต้องติดตั้งอะไร)
+
+**https://punkharb.github.io/api-deprecation-guard-demo/** — หน้าเว็บ 5 หน้า (ภาพรวม → 3 scenarios → สรุป) กด ← → เพื่อเปลี่ยนหน้า
+ผลทั้งหมดมาจาก oasdiff ตัวจริง (`npm run build` รัน oasdiff แล้วบันทึกลง `docs/data.js`)
+
+## Setup สำหรับรันเองใน terminal (ครั้งเดียว)
 
 ```powershell
 go install github.com/oasdiff/oasdiff@latest   # ได้ oasdiff v1.40.0 ที่ ~/go/bin
@@ -15,6 +20,7 @@ go install github.com/oasdiff/oasdiff@latest   # ได้ oasdiff v1.40.0 ท�
 cd demo
 npm run demo      # 3 scenarios, กด Enter ทีละอัน
 npm test          # unit test ของตัววิเคราะห์ผลกระทบ (5 tests)
+npm run build     # แก้ spec / usage แล้วสร้างข้อมูลหน้าเว็บใหม่ (docs/data.js)
 ```
 
 ## ไฟล์
