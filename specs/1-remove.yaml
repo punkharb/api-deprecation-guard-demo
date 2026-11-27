@@ -1,0 +1,21 @@
+# Scenario 1: developer deletes `phone` and the whole /orders endpoint
+# with NO deprecation first. This is the 87.3% case from Yasmin et al.
+openapi: 3.0.3
+info: {title: Shop API, version: 2.0.0}
+paths:
+  /users/{id}:
+    get:
+      operationId: getUser
+      parameters:
+        - {name: id, in: path, required: true, schema: {type: string}}
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id: {type: string}
+                  name: {type: string}
+                  email: {type: string}

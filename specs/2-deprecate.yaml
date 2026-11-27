@@ -1,0 +1,39 @@
+# Scenario 2: the polite way. Nothing removed yet; /orders is marked
+# deprecated with a sunset date so consumers get time to migrate.
+openapi: 3.0.3
+info: {title: Shop API, version: 1.1.0}
+paths:
+  /users/{id}:
+    get:
+      operationId: getUser
+      parameters:
+        - {name: id, in: path, required: true, schema: {type: string}}
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id: {type: string}
+                  name: {type: string}
+                  phone: {type: string}
+                  email: {type: string}
+  /orders:
+    get:
+      operationId: listOrders
+      deprecated: true
+      x-sunset: '2027-06-01'
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    orderId: {type: string}
+                    total: {type: number}

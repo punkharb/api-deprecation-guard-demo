@@ -1,0 +1,10 @@
+{
+  "_note": "Stand-in for the SQLite field-usage table the real SDK (JS Proxy) will fill. One row = this app reads this field.",
+  "usage": [
+    { "app": "App A (profile page)",   "method": "GET", "path": "/users/{id}", "field": "name" },
+    { "app": "App B (delivery app)",   "method": "GET", "path": "/users/{id}", "field": "name" },
+    { "app": "App B (delivery app)",   "method": "GET", "path": "/users/{id}", "field": "phone" },
+    { "app": "App C (admin tool)",     "method": "GET", "path": "/users/{id}", "field": "id" },
+    { "app": "App D (finance report)", "method": "GET", "path": "/orders",     "field": "total" }
+  ]
+}
