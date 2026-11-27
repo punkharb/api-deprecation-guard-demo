@@ -4,8 +4,11 @@ Demo สั้นๆ ให้อาจารย์ดูว่า **oasdiff ค
 
 ## ▶ ดู demo แบบง่ายสุด (ไม่ต้องติดตั้งอะไร)
 
-**https://punkharb.github.io/api-deprecation-guard-demo/** — หน้าเว็บ 5 หน้า (ภาพรวม → 3 scenarios → สรุป) กด ← → เพื่อเปลี่ยนหน้า
-ผลทั้งหมดมาจาก oasdiff ตัวจริง (`npm run build` รัน oasdiff แล้วบันทึกลง `docs/data.js`)
+**https://punkharb.github.io/api-deprecation-guard-demo/** — แท็บ **"ลองเอง ▶"** แก้ API spec ได้สดๆ
+- **oasdiff ตัวจริง** (v1.40.0 คอมไพล์เป็น WebAssembly) รันในเบราว์เซอร์ ผลตรงกับ CLI ทุก scenario ไม่มี server
+- กดปุ่ม scenario หรือพิมพ์แก้ YAML เอง → เห็นทันทีว่า PR ถูกบล็อกไหม และแอปไหนพัง
+- ติ๊ก checkbox ว่าแอปไหนอ่าน field ไหน → ผลเปลี่ยนตาม
+- โหลดครั้งแรก ~6 MB (ไม่กี่วินาที)
 
 ## Setup สำหรับรันเองใน terminal (ครั้งเดียว)
 
@@ -18,9 +21,10 @@ go install github.com/oasdiff/oasdiff@latest   # ได้ oasdiff v1.40.0 ท�
 
 ```powershell
 cd demo
-npm run demo      # 3 scenarios, กด Enter ทีละอัน
-npm test          # unit test ของตัววิเคราะห์ผลกระทบ (5 tests)
-npm run build     # แก้ spec / usage แล้วสร้างข้อมูลหน้าเว็บใหม่ (docs/data.js)
+npm run demo        # 4 scenarios ใน terminal, กด Enter ทีละอัน
+npm test            # unit test ของตัววิเคราะห์ผลกระทบ (5 tests)
+npm run build       # แก้ spec / usage / analyze.ts แล้วอัปเดตหน้าเว็บ (docs/analyze.js, docs/specs.js)
+npm run build:wasm  # คอมไพล์ oasdiff เป็น docs/oasdiff.wasm ใหม่ (ต้องมี Go; wrapper อยู่ที่ wasm/main.go)
 ```
 
 ## ไฟล์
@@ -31,6 +35,9 @@ npm run build     # แก้ spec / usage แล้วสร้างข้อ�
 | `specs/1-remove.yaml` | ลบ `phone` และลบ `/orders` ทิ้งเลย **ไม่ deprecate ก่อน** |
 | `specs/2-deprecate.yaml` | ยังไม่ลบ แค่ mark `/orders` เป็น `deprecated: true` + `x-sunset: 2027-06-01` |
 | `specs/3-rename.yaml` | เปลี่ยนชื่อ `phone` → `phoneNumber` |
+| `specs/4-type.yaml` | เปลี่ยน type ของ `total` จาก number เป็น string |
+| `docs/` | หน้าเว็บ (GitHub Pages) + oasdiff.wasm |
+| `wasm/main.go` | ตัวห่อ oasdiff ให้ JavaScript เรียกได้ (`oasdiffChangelog(base, revision)`) |
 | `impact/usage.json` | ข้อมูลจำลองว่าแอปไหนอ่าน field ไหน (ของจริงจะมาจาก SDK + SQLite) |
 | `impact/analyze.ts` | **ส่วนของกลุ่ม**: join ผล oasdiff กับ usage → บอกว่าแอปไหนพัง |
 
@@ -43,6 +50,7 @@ npm run build     # แก้ spec / usage แล้วสร้างข้อ�
 | 1. ลบไม่ deprecate | **exit 1 → PR fail** | `api-path-removed-without-deprecation` (error) + ลบ `phone` เป็นแค่ **info** | **B พัง** (phone), **D พัง** (/orders) · A, C ไม่ต้องแจ้ง |
 | 2. deprecate + sunset | exit 0 → PR ผ่าน | `endpoint-deprecated-with-sunset` (info) | **D** ได้ notice ให้ย้ายก่อน 2027-06-01 · A, B, C ไม่ต้องแจ้ง |
 | 3. rename | exit 0 → **PR ผ่าน** | ลบ `phone` + เพิ่ม `phoneNumber` (info ทั้งคู่) | **B พัง** · A, C, D ไม่ต้องแจ้ง |
+| 4. เปลี่ยน type | **exit 1 → PR fail** | `response-property-type-changed` (error) | **D พัง** · A, B, C ไม่ต้องแจ้ง |
 
 ## Talk track (~5 นาที)
 

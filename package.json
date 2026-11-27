@@ -5,6 +5,7 @@
   "scripts": {
     "test": "node --test impact/analyze.test.ts",
     "build": "node build.ts",
+    "build:wasm": "node build.ts --wasm",
     "demo": "powershell -ExecutionPolicy Bypass -File run-demo.ps1"
   }
 }
